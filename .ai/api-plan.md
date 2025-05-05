@@ -75,7 +75,7 @@ Endpoints to log and retrieve AI generation requests and their outcomes.
     ```json
     {
       "generation_id": 123,
-        "flashcardsProposals": [
+        "flashcards_proposals": [
             {
                 "front": "string (non-empty, max 200 characters)",
                 "back": "string (non-empty, max 500 characters)",

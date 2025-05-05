@@ -1,7 +1,12 @@
 import type { Database } from "./db/database.types";
 
 // Flashcard DTO - represents a flashcard as stored in the DB
-export type FlashcardDTO = Database["public"]["Tables"]["flashcards"]["Row"];
+export type Flashcard = Database["public"]["Tables"]["flashcards"]["Row"];
+
+export type FlashcardDTO = Pick<
+  Flashcard,
+  "id" | "front" | "back" | "source" | "generation_id" | "created_at" | "updated_at"
+>;
 
 export type Sources = "ai-full" | "ai-edited" | "manual";
 // Command Model for creating flashcards in bulk
@@ -34,7 +39,7 @@ export interface FlashcardProposalDTO {
 // DTO for the response of the AI generation endpoint
 export interface GenerationResponseDTO {
   generation_id: number;
-  flashcardsProposals: FlashcardProposalDTO[];
+  flashcards_proposals: FlashcardProposalDTO[];
   generated_count: number;
 }
 
@@ -44,13 +49,26 @@ export type GenerationDTO = Database["public"]["Tables"]["generations"]["Row"];
 // DTO for a generation error log
 export type GenerationErrorLogDTO = Database["public"]["Tables"]["generation_error_logs"]["Row"];
 
-export interface PaginationDto {
+export interface PaginationDTO {
   page: number;
   limit: number;
   total: number;
 }
 
-export interface FlashcardListResponse {
+export interface FlashcardListResponseDTO {
   flashcards: FlashcardDTO[];
-  pagination: PaginationDto;
+  pagination: PaginationDTO;
+}
+
+export interface GenerationInput {
+  title: string;
+  prompt: string;
+}
+
+export interface GenerationOutput {
+  id: string;
+  title: string;
+  prompt: string;
+  status: "pending" | "completed" | "failed";
+  createdAt: string;
 }
