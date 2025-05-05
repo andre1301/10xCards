@@ -1,4 +1,4 @@
-# AI Rules for {{project-name}}
+# AI Rules for 10-x-cards
 
 {{project-description}}
 
