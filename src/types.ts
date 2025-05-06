@@ -30,7 +30,6 @@ export interface GenerationRequestCommand {
 
 // DTO representing a flashcard proposal returned from the generation process
 export interface FlashcardProposalDTO {
-  id: number;
   front: string; // non-empty, max 200 characters
   back: string; // non-empty, max 500 characters
   source: "ai-full";
