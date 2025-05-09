@@ -37,22 +37,22 @@ export class GenerationsService {
     const flashcards = await this.aiService.generateFlashcards(input.sourceText, input.model);
 
     // Store flashcards
-    const { data: storedFlashcards, error: flashcardsError } = await this.supabase
-      .from("flashcards")
-      .insert(
-        flashcards.map((card) => ({
-          front: card.front,
-          back: card.back,
-          source: "ai-full",
-          user_id: DEFAULT_USER_ID,
-          generation_id: generation.id,
-        }))
-      )
-      .select();
+    // const { data: storedFlashcards, error: flashcardsError } = await this.supabase
+    //   .from("flashcards")
+    //   .insert(
+    //     flashcards.map((card) => ({
+    //       front: card.front,
+    //       back: card.back,
+    //       source: "ai-full",
+    //       user_id: DEFAULT_USER_ID,
+    //       generation_id: generation.id,
+    //     }))
+    //   )
+    //   .select();
 
-    if (flashcardsError) {
-      throw new Error(`Failed to store flashcards: ${flashcardsError.message}`);
-    }
+    // if (flashcardsError) {
+    //   throw new Error(`Failed to store flashcards: ${flashcardsError.message}`);
+    // }
 
     // Update generation with final stats
     const generationDuration = Date.now() - startTime;
@@ -67,7 +67,7 @@ export class GenerationsService {
     // Return in the required format
     return {
       generation_id: generation.id,
-      flashcards_proposals: storedFlashcards.map((card) => ({
+      flashcards_proposals: flashcards.map((card) => ({
         front: card.front,
         back: card.back,
         source: "ai-full" as const,
